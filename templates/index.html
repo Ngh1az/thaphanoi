@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mô phỏng Tháp Hà Nội - Chia để Trị</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Mô phỏng Tháp Hà Nội</h1>
+        <p class="subtitle">Thuật toán "Chia để Trị" (Divide and Conquer)</p>
+      </header>
+
+      <div class="controls">
+        <div class="input-group">
+          <label for="so-dia">Số đĩa (2-10):</label>
+          <input type="number" id="so-dia" min="2" max="10" value="3" />
+        </div>
+
+        <div class="button-group">
+          <button id="btn-bat-dau" class="btn btn-primary">Bắt đầu</button>
+          <button id="btn-dung" class="btn btn-secondary" disabled>Dừng</button>
+          <button id="btn-reset" class="btn btn-secondary">Reset</button>
+        </div>
+
+        <div class="speed-control">
+          <label for="toc-do">Tốc độ:</label>
+          <input type="range" id="toc-do" min="1" max="10" value="5" />
+          <span id="speed-label">Trung bình</span>
+        </div>
+      </div>
+
+      <div class="info-panel">
+        <div class="info-item">
+          <span class="label">Số bước:</span>
+          <span id="so-buoc" class="value">0</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Bước hiện tại:</span>
+          <span id="buoc-hien-tai" class="value">0</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Trạng thái:</span>
+          <span id="trang-thai" class="value">Sẵn sàng</span>
+        </div>
+      </div>
+
+      <!-- Thống kê Chia để Trị -->
+      <div class="divide-conquer-stats">
+        <h3>Thống kê Chia để Trị</h3>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Tổng số lần đệ quy</div>
+            <div class="stat-value" id="de-quy-count">0</div>
+            <div class="stat-formula">= 2<sup>n</sup> - 1</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Độ sâu đệ quy tối đa</div>
+            <div class="stat-value" id="do-sau">0</div>
+            <div class="stat-formula">= n (số đĩa)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Độ phức tạp</div>
+            <div class="stat-value">O(2<sup>n</sup>)</div>
+            <div class="stat-formula">Exponential</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Bước hiện tại</div>
+            <div class="stat-value" id="buoc-de-quy">-</div>
+            <div class="stat-formula" id="buoc-giai-thich">Đang chờ...</div>
+          </div>
+        </div>
+      </div>
+
+      <canvas id="canvas" width="800" height="400"></canvas>
+
+      <!-- Hiển thị bước di chuyển hiện tại -->
+      <div class="current-move">
+        <h3>Bước di chuyển hiện tại</h3>
+        <div id="move-description" class="move-text">Chưa bắt đầu...</div>
+      </div>
+
+      <!-- Lịch sử các bước đã thực hiện -->
+      <div class="move-history">
+        <div class="history-header">
+          <h3>📜 Lịch sử các bước di chuyển</h3>
+          <button id="btn-clear-history" class="btn-clear">Xóa lịch sử</button>
+        </div>
+        <div id="history-list" class="history-list">
+          <p class="history-empty">Chưa có bước nào được thực hiện...</p>
+        </div>
+      </div>
+
+      <div class="explanation">
+        <h3>💡 Giải thích thuật toán "Chia để Trị"</h3>
+        <div class="explanation-content">
+          <div class="explanation-item">
+            <div class="explanation-icon">🔀</div>
+            <div>
+              <strong>CHIA (Divide):</strong> Để di chuyển n đĩa từ A → C, ta
+              chia thành 3 bài toán con:
+              <ul>
+                <li>Di chuyển (n-1) đĩa từ A → B (dùng C làm trung gian)</li>
+                <li>Di chuyển đĩa thứ n (lớn nhất) từ A → C</li>
+                <li>Di chuyển (n-1) đĩa từ B → C (dùng A làm trung gian)</li>
+              </ul>
+            </div>
+          </div>
+          <div class="explanation-item">
+            <div class="explanation-icon">🎯</div>
+            <div>
+              <strong>TRỊ (Conquer):</strong> Trường hợp cơ sở: chỉ có 1 đĩa →
+              di chuyển trực tiếp
+            </div>
+          </div>
+          <div class="explanation-item">
+            <div class="explanation-icon">📊</div>
+            <div>
+              <strong>Tổng số bước:</strong> 2<sup>n</sup> - 1 (với n là số đĩa)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
