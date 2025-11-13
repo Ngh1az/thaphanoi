@@ -89,6 +89,9 @@ def giai_thap_ha_noi():
         }), 500
 
 if __name__ == '__main__':
+    import os
     # Chạy Flask app ở chế độ debug
     # Host 0.0.0.0 để có thể truy cập từ các máy khác trong mạng
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Port lấy từ environment variable PORT (Render tự set) hoặc mặc định 5000
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
